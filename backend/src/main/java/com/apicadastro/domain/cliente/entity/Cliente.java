@@ -1,7 +1,8 @@
-package com.apicadastro.core.cliente.entity;
+package com.apicadastro.domain.cliente.entity;
 
 
-import com.apicadastro.core.endereco.entity.Endereco;
+import com.apicadastro.domain.endereco.entity.Endereco;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class Cliente implements Serializable {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnore
     private Set<Endereco> enderecos = new HashSet<>();
 
     public Cliente() {

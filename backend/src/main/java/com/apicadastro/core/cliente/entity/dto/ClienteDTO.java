@@ -1,11 +1,14 @@
 package com.apicadastro.core.cliente.entity.dto;
 
-import com.apicadastro.core.cliente.entity.Cliente;
-import com.apicadastro.core.endereco.entity.Endereco;
+import com.apicadastro.domain.cliente.entity.Cliente;
+import com.apicadastro.domain.endereco.entity.Endereco;
+import com.apicadastro.domain.endereco.entity.dto.EnderecoDTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ClienteDTO implements Serializable {
@@ -23,7 +26,7 @@ public class ClienteDTO implements Serializable {
 
     private LocalDate dataNascimento;
 
-    private Set<Endereco> enderecos = new HashSet<>();
+    private Set<EnderecoDTO> enderecos = new HashSet<>();
 
     public ClienteDTO() {
     }
@@ -44,7 +47,11 @@ public class ClienteDTO implements Serializable {
         this.email = entidade.getEmail();
         this.telefone = entidade.getTelefone();
         this.dataNascimento = entidade.getDataNascimento();
-        this.enderecos = entidade.getEnderecos();
+    }
+
+    public ClienteDTO(Cliente entidade, Set<Endereco> enderecos) {
+        this(entidade);
+        enderecos.forEach(endereco -> this.enderecos.add(new EnderecoDTO(endereco)));
     }
 
     public Long getId() {
@@ -95,7 +102,7 @@ public class ClienteDTO implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public Set<Endereco> getEnderecos() {
+    public Set<EnderecoDTO> getEnderecos() {
         return enderecos;
     }
 }

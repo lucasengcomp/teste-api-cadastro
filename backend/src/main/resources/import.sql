@@ -16,4 +16,3 @@ INSERT INTO tb_endereco(cep, rua, numero, bairro, cidade, estado, complemento, c
 INSERT INTO tb_endereco(cep, rua, numero, bairro, cidade, estado, complemento, cliente_id) VALUES ('13336-028', 'Rua Tenente José R. Júnior', 'Qd4 lote 124', 'Cidade Nova', 'Garrafão do Norte', 'Rondonia', 'Próximo ao banco do Brasil', 4);
 INSERT INTO tb_endereco(cep, rua, numero, bairro, cidade, estado, complemento, cliente_id) VALUES ('79640-321', 'Rua Vereador João Calazans', 'Qd19 lote 56', 'Maria Ortiz', 'Teresina', 'Piauí', 'Próximo ao correios', 1);
 INSERT INTO tb_endereco(cep, rua, numero, bairro, cidade, estado, complemento, cliente_id) VALUES ('60347-036', 'Rua Juvenal Barreto', 'Qd2 lote 51', 'Barreiros', 'Caicó', 'Rio Grande do Norte', 'Próximo ao mercadinho', 6);
-

@@ -1,6 +1,6 @@
-package com.apicadastro.core.endereco.entity;
+package com.apicadastro.domain.endereco.entity;
 
-import com.apicadastro.core.cliente.entity.Cliente;
+import com.apicadastro.domain.cliente.entity.Cliente;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -109,6 +109,14 @@ public class Endereco implements Serializable {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     @Override
