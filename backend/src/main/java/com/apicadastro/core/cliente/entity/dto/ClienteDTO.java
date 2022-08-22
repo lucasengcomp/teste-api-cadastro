@@ -1,19 +1,16 @@
-package com.apicadastro.core.cliente.entity;
+package com.apicadastro.core.cliente.entity.dto;
 
-
+import com.apicadastro.core.cliente.entity.Cliente;
 import com.apicadastro.core.endereco.entity.Endereco;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "tb_cliente")
-public class Cliente implements Serializable {
+public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nomeCompleto;
@@ -26,19 +23,28 @@ public class Cliente implements Serializable {
 
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "cliente")
     private Set<Endereco> enderecos = new HashSet<>();
 
-    public Cliente() {
+    public ClienteDTO() {
     }
 
-    public Cliente(Long id, String nomeCompleto, String cpf, String email, String telefone, LocalDate dataNascimento) {
+    public ClienteDTO(Long id, String nomeCompleto, String cpf, String email, String telefone, LocalDate dataNascimento) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+    }
+
+    public ClienteDTO(Cliente entidade) {
+        this.id = entidade.getId();
+        this.nomeCompleto = entidade.getNomeCompleto();
+        this.cpf = entidade.getCpf();
+        this.email = entidade.getEmail();
+        this.telefone = entidade.getTelefone();
+        this.dataNascimento = entidade.getDataNascimento();
+        this.enderecos = entidade.getEnderecos();
     }
 
     public Long getId() {
@@ -91,18 +97,5 @@ public class Cliente implements Serializable {
 
     public Set<Endereco> getEnderecos() {
         return enderecos;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return id.equals(cliente.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
