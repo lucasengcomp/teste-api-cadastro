@@ -1,6 +1,5 @@
 package com.apicadastro.domain.cliente.service;
 
-import com.apicadastro.core.exception.service.ConstraintViolationDataException;
 import com.apicadastro.core.exception.service.DatabaseException;
 import com.apicadastro.core.exception.service.ResourceNotFoundException;
 import com.apicadastro.domain.cliente.entity.Cliente;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 import static com.apicadastro.core.consts.Consts.*;
@@ -39,7 +37,7 @@ public class ClienteService {
         return clientes.map(x -> new ClienteDTO(x));
     }
 
-    @javax.transaction.Transactional
+    @Transactional
     public ClienteDTO insert(ClienteDTO dto) {
         Cliente entity = new Cliente();
         entity = objetoCliente(dto, entity);

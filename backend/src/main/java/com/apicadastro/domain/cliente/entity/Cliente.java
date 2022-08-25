@@ -1,6 +1,7 @@
 package com.apicadastro.domain.cliente.entity;
 
 
+import com.apicadastro.domain.pedido.entity.Pedido;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -8,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "tb_cliente")
@@ -42,6 +45,9 @@ public class Cliente implements Serializable {
     @Lob
     @NotEmpty(message = "Campo endereço é de preenchimento obrigatório")
     private String endereco;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
     }
@@ -110,6 +116,10 @@ public class Cliente implements Serializable {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     @Override
