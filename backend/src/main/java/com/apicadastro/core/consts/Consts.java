@@ -2,6 +2,13 @@ package com.apicadastro.core.consts;
 
 public class Consts {
 
-    public static final String RESOURCE_NOT_FOUND = "Resource not found";
-    public static final String DATABASE_EXCEPTION = "Database exception";
+    public static final String RECURSO_NÃO_ENCONTRADO = "Recurso não encontrado";
+
+    public static final String EXCECAO_DE_BANCO_DE_DADOS = "Exceção de banco de dados";
+
+    public static final String EXCECAO_DE_BANCO_DE_DADOS_VIOLATION = "Violação de banco de dados";
+
+    public static final String EMAIL_EM_USO = "Este email já está sendo usado em outro cadastro!";
+
+    public static final String ERRO_VALIDACAO = "Erro na validação dos dados";
 }

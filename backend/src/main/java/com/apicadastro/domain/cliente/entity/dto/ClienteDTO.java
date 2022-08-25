@@ -1,22 +1,16 @@
-package com.apicadastro.core.cliente.entity.dto;
+package com.apicadastro.domain.cliente.entity.dto;
 
 import com.apicadastro.domain.cliente.entity.Cliente;
-import com.apicadastro.domain.endereco.entity.Endereco;
-import com.apicadastro.domain.endereco.entity.dto.EnderecoDTO;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
+//@ClienteUpdate
 public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private String nomeCompleto;
+    private String nome;
 
     private String cpf;
 
@@ -24,34 +18,31 @@ public class ClienteDTO implements Serializable {
 
     private String telefone;
 
-    private LocalDate dataNascimento;
+    private String dataNascimento;
 
-    private Set<EnderecoDTO> enderecos = new HashSet<>();
+    private String endereco;
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(Long id, String nomeCompleto, String cpf, String email, String telefone, LocalDate dataNascimento) {
+    public ClienteDTO(Long id, String nome, String cpf, String email, String telefone, String dataNascimento, String endereco) {
         this.id = id;
-        this.nomeCompleto = nomeCompleto;
+        this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
     }
 
     public ClienteDTO(Cliente entidade) {
         this.id = entidade.getId();
-        this.nomeCompleto = entidade.getNomeCompleto();
+        this.nome = entidade.getNome();
         this.cpf = entidade.getCpf();
         this.email = entidade.getEmail();
         this.telefone = entidade.getTelefone();
         this.dataNascimento = entidade.getDataNascimento();
-    }
-
-    public ClienteDTO(Cliente entidade, Set<Endereco> enderecos) {
-        this(entidade);
-        enderecos.forEach(endereco -> this.enderecos.add(new EnderecoDTO(endereco)));
+        this.endereco = entidade.getEndereco();
     }
 
     public Long getId() {
@@ -62,12 +53,12 @@ public class ClienteDTO implements Serializable {
         this.id = id;
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCpf() {
@@ -94,15 +85,19 @@ public class ClienteDTO implements Serializable {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public Set<EnderecoDTO> getEnderecos() {
-        return enderecos;
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }

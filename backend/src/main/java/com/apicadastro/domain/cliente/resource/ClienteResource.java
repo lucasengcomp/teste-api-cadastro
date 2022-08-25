@@ -1,6 +1,8 @@
 package com.apicadastro.domain.cliente.resource;
 
-import com.apicadastro.core.cliente.entity.dto.ClienteDTO;
+import com.apicadastro.domain.cliente.entity.Cliente;
+import com.apicadastro.domain.cliente.entity.dto.ClienteDTO;
+import com.apicadastro.domain.cliente.entity.dto.ClienteNovoDTO;
 import com.apicadastro.domain.cliente.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/clientes")
@@ -32,4 +38,37 @@ public class ClienteResource {
         Page<ClienteDTO> dtos = service.findAllPaged(pageRequest);
         return ResponseEntity.ok(dtos);
     }
+
+    @PostMapping
+    public ResponseEntity<ClienteDTO> insert(@Valid @RequestBody ClienteDTO dto) {
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    /*
+    @PostMapping
+    public ResponseEntity<ClienteDTO> inserting(@Valid @RequestBody ClienteDTO dto) {
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Void> inserts(@Valid @RequestBody ClienteNovoDTO objDto) {
+        Cliente obj = service.fromDTO(objDto);
+        obj = service.inserts(obj);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+    */
 }

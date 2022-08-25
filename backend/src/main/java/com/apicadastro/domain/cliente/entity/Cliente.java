@@ -1,13 +1,14 @@
 package com.apicadastro.domain.cliente.entity;
 
 
-import com.apicadastro.domain.endereco.entity.Endereco;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Objects;
 
 @Entity(name = "tb_cliente")
 public class Cliente implements Serializable {
@@ -17,30 +18,42 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nomeCompleto;
+    @Column(name = "nome_completo", length = 100)
+    @NotEmpty(message = "Campo nome é de preenchimento obrigatório")
+    @Length(min = 2, max = 100, message = "O tamanho deve ter no mínimo 2 e no máximo 100 caracteres")
+    private String nome;
 
+    @CPF
+    @NotEmpty(message = "Campo cpf é de preenchimento obrigatório")
     private String cpf;
 
+    @Column(unique = true)
+    @NotEmpty(message = "Campo email é de preenchimento obrigatório")
+    @Email(message = "O email informado é inválido")
     private String email;
 
+    @NotEmpty(message = "Campo telefone é de preenchimento obrigatório")
     private String telefone;
 
-    private LocalDate dataNascimento;
+    @NotEmpty(message = "Campo data de nascimento é de preenchimento obrigatório")
+    @Column(name = "data_nascimento")
+    private String dataNascimento;
 
-    @OneToMany(mappedBy = "cliente")
-    @JsonIgnore
-    private Set<Endereco> enderecos = new HashSet<>();
+    @Lob
+    @NotEmpty(message = "Campo endereço é de preenchimento obrigatório")
+    private String endereco;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String nomeCompleto, String cpf, String email, String telefone, LocalDate dataNascimento) {
+    public Cliente(Long id, String nome, String cpf, String email, String telefone, String dataNascimento, String endereco) {
         this.id = id;
-        this.nomeCompleto = nomeCompleto;
+        this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
     }
 
     public Long getId() {
@@ -51,12 +64,12 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCpf() {
@@ -83,16 +96,20 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    public LocalDate getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
-    public Set<Endereco> getEnderecos() {
-        return enderecos;
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     @Override
