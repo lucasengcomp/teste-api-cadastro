@@ -1,5 +1,6 @@
 package com.apicadastro.domain.cliente.service;
 
+import com.apicadastro.core.exception.service.ConstraintViolationDataException;
 import com.apicadastro.core.exception.service.DatabaseException;
 import com.apicadastro.core.exception.service.ResourceNotFoundException;
 import com.apicadastro.domain.cliente.entity.Cliente;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 import static com.apicadastro.core.consts.Consts.*;
@@ -44,6 +47,28 @@ public class ClienteService {
         return new ClienteDTO(entity);
     }
 
+    public void deleteById(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(INTEGRIDADE_DE_DADOS_VIOLADA);
+        }
+    }
+
+    @Transactional
+    public ClienteDTO update(Long id, ClienteDTO dto) {
+        try {
+            Cliente entity = repository.getOne(id);
+            objetoCliente(dto, entity);
+            entity = repository.save(entity);
+            return new ClienteDTO(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
+        }
+    }
+
     private Cliente objetoCliente(ClienteDTO dto, Cliente entity) {
         entity.setId(dto.getId());
         entity.setNome(dto.getNome());
@@ -53,15 +78,5 @@ public class ClienteService {
         entity.setTelefone(dto.getTelefone());
         entity.setEndereco(dto.getEndereco());
         return entity;
-    }
-
-    public void deleteById(Long id) {
-        try {
-            repository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
-        } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException(INTEGRIDADE_DE_DADOS_VIOLADA);
-        }
     }
 }
