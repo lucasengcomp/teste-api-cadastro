@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.apicadastro.core.consts.Consts.EMAIL_EM_USO;
+import static com.apicadastro.core.consts.Consts.EMAIL_DUPLICADO;
 
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
@@ -55,7 +55,7 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 
     private void verificaSeEmailEstaEmUsoAdicionaNoFieldMessage(Integer urId, List<FieldMessage> list, Cliente emailCliente) {
         if (emailCliente != null && !emailCliente.getId().equals(urId)) {
-            list.add(new FieldMessage("email", EMAIL_EM_USO));
+            list.add(new FieldMessage("email", EMAIL_DUPLICADO));
         }
     }
 }

@@ -10,4 +10,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     @Transactional
     Cliente findByEmail(String email);
+
+    Cliente findClienteByEmail(String email);
 }

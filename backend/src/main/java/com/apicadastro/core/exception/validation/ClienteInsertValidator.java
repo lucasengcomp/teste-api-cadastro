@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.apicadastro.core.consts.Consts.EMAIL_EM_USO;
+import static com.apicadastro.core.consts.Consts.EMAIL_DUPLICADO;
 
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNovoDTO> {
@@ -35,7 +35,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 
     private void verificaSeEmailENuloAdicionaNoFieldMessage(List<FieldMessage> fieldMessages, Cliente emailCliente) {
         if (emailCliente != null) {
-            fieldMessages.add(new FieldMessage("email", EMAIL_EM_USO));
+            fieldMessages.add(new FieldMessage("email", EMAIL_DUPLICADO));
         }
     }
 

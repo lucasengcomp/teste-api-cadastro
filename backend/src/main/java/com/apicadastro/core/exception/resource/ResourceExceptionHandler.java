@@ -3,6 +3,7 @@ package com.apicadastro.core.exception.resource;
 import com.apicadastro.core.exception.service.ConstraintViolationException;
 import com.apicadastro.core.exception.service.DatabaseException;
 import com.apicadastro.core.exception.service.ResourceNotFoundException;
+import com.apicadastro.core.exception.service.UnprocessableEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,7 +20,7 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
         StandardError error = new StandardError();
-        HttpStatus status = objectsFactory(request, error, HttpStatus.NOT_FOUND, RECURSO_NÃO_ENCONTRADO, e.getMessage());
+        HttpStatus status = objectsFactory(request, error, HttpStatus.NOT_FOUND, RECURSO_NAO_ENCONTRADO, e.getMessage());
         return ResponseEntity.status(status).body(error);
     }
 
@@ -37,6 +38,13 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+    @ExceptionHandler(UnprocessableEntity.class)
+    public ResponseEntity<StandardError> unprocessableEntity(UnprocessableEntity e, HttpServletRequest request) {
+        StandardError error = new StandardError();
+        HttpStatus status = objectsFactory(request, error, HttpStatus.UNPROCESSABLE_ENTITY, ENTIDADE_NAO_PODE_SER_PROCESSADA, e.getMessage());
+        return ResponseEntity.status(status).body(error);
+    }
+
     private HttpStatus objectsFactory(HttpServletRequest request, StandardError error, HttpStatus badRequest, String databaseException, String message) {
         HttpStatus status = badRequest;
         error.setTimestamp(Instant.now());
@@ -46,5 +54,4 @@ public class ResourceExceptionHandler {
         error.setPath(request.getRequestURI());
         return status;
     }
-
 }

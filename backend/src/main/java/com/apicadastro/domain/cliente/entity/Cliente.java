@@ -2,6 +2,9 @@ package com.apicadastro.domain.cliente.entity;
 
 
 import com.apicadastro.domain.pedido.entity.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -47,6 +50,8 @@ public class Cliente implements Serializable {
     private String endereco;
 
     @OneToMany(mappedBy = "cliente")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JsonBackReference
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
