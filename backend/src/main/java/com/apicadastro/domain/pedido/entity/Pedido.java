@@ -3,6 +3,8 @@ package com.apicadastro.domain.pedido.entity;
 import com.apicadastro.domain.cliente.entity.Cliente;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_pedido")
@@ -12,33 +14,17 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100, nullable = false)
-    private String sku;
-
-    @Column(length = 100, nullable = false)
-    private String nome;
-
     @Column(nullable = false)
-    private Double valorUnitario;
-
+    private String endereco;
     @Column(nullable = false)
-    private Long quantidade;
+    private Integer valorTotal;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_pedido_cliente"), nullable = false)
+    @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "fk_pedido_cliente"))
     private Cliente cliente;
 
-    public Pedido() {
-    }
-
-    public Pedido(Long id, String sku, String nome, Double valorUnitario, Long quantidade, Cliente cliente) {
-        this.id = id;
-        this.sku = sku;
-        this.nome = nome;
-        this.valorUnitario = valorUnitario;
-        this.quantidade = quantidade;
-        this.cliente = cliente;
-    }
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ItemPedido> items = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -48,36 +34,12 @@ public class Pedido {
         this.id = id;
     }
 
-    public String getSku() {
-        return sku;
+    public Integer getValorTotal() {
+        return valorTotal;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(Double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public Long getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
+    public void setValorTotal(Integer valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public Cliente getCliente() {
@@ -86,6 +48,22 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public List<ItemPedido> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemPedido> items) {
+        this.items = items;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     @Override

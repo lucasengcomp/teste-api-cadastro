@@ -36,5 +36,7 @@ public class Consts {
 
     public static final String DATA_NASCIMENTO_CLIENTE_OBRIGATORIO = "A DATA DE NASCIMENTO do Cliente deve ser preenchida";
 
+    public static final String VALOR_NEGATIVO_NAO_PERMITIDO = "O valor deve ser maior que 0";
+
 
 }
