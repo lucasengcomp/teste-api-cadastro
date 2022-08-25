@@ -1,10 +1,13 @@
 package com.apicadastro.domain.cliente.service;
 
+import com.apicadastro.core.exception.service.DatabaseException;
 import com.apicadastro.core.exception.service.ResourceNotFoundException;
 import com.apicadastro.domain.cliente.entity.Cliente;
 import com.apicadastro.domain.cliente.entity.dto.ClienteDTO;
 import com.apicadastro.domain.cliente.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.apicadastro.core.consts.Consts.RECURSO_NÃO_ENCONTRADO;
+import static com.apicadastro.core.consts.Consts.*;
 
 @Service
 public class ClienteService {
@@ -52,34 +55,13 @@ public class ClienteService {
         return entity;
     }
 
-    /*
-    @Transactional(readOnly = true)
-    public Cliente insert(Cliente objetoCliente) {
-        return repository.save(objetoCliente);
+    public void deleteById(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(INTEGRIDADE_DE_DADOS_VIOLADA);
+        }
     }
-
-
-    public Cliente fromDTO(ClienteDTO objDto) {
-        return new Cliente(
-                objDto.getId(),
-                objDto.getNome(),
-                objDto.getCpf(),
-                objDto.getEmail(),
-                objDto.getTelefone(),
-                objDto.getDataNascimento(),
-                objDto.getEndereco());
-    }
-
-
-    public Cliente fromDTO(ClienteNovoDTO objDto) {
-        return new Cliente(
-                objDto.getId(),
-                objDto.getNome(),
-                objDto.getCpf(),
-                objDto.getEmail(),
-                objDto.getTelefone(),
-                objDto.getDataNascimento(),
-                objDto.getEndereco());
-    }
-*/
 }

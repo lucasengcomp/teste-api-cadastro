@@ -1,8 +1,6 @@
 package com.apicadastro.domain.cliente.resource;
 
-import com.apicadastro.domain.cliente.entity.Cliente;
 import com.apicadastro.domain.cliente.entity.dto.ClienteDTO;
-import com.apicadastro.domain.cliente.entity.dto.ClienteNovoDTO;
 import com.apicadastro.domain.cliente.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +38,7 @@ public class ClienteResource {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> insert(@Valid @RequestBody ClienteDTO dto) {
+    public ResponseEntity<ClienteDTO> insert(@RequestBody ClienteDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -49,26 +47,9 @@ public class ClienteResource {
         return ResponseEntity.created(uri).body(dto);
     }
 
-    /*
-    @PostMapping
-    public ResponseEntity<ClienteDTO> inserting(@Valid @RequestBody ClienteDTO dto) {
-        dto = service.insert(dto);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
-
-
-    @PostMapping
-    public ResponseEntity<Void> inserts(@Valid @RequestBody ClienteNovoDTO objDto) {
-        Cliente obj = service.fromDTO(objDto);
-        obj = service.inserts(obj);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }
-    */
 }
