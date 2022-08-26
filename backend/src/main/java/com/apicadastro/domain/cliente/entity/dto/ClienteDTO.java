@@ -1,6 +1,7 @@
 package com.apicadastro.domain.cliente.entity.dto;
 
 import com.apicadastro.domain.cliente.entity.Cliente;
+import com.apicadastro.domain.pedido.entity.dto.PedidoDTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,6 +22,8 @@ public class ClienteDTO implements Serializable {
     private LocalDate dataNascimento;
 
     private String endereco;
+
+    private PedidoDTO pedido;
 
     public ClienteDTO() {
     }
@@ -43,6 +46,11 @@ public class ClienteDTO implements Serializable {
         this.telefone = entidade.getTelefone();
         this.dataNascimento = entidade.getDataNascimento();
         this.endereco = entidade.getEndereco();
+    }
+
+    public ClienteDTO(Cliente cliente, PedidoDTO pedidoDTO) {
+        this(cliente);
+        pedido = new PedidoDTO();
     }
 
     public Long getId() {

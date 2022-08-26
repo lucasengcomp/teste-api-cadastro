@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -17,14 +18,24 @@ public class PedidoResource {
     private PedidoService service;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PedidoDTO> findById(@PathVariable Long id) {
-        PedidoDTO dto = service.findById(id);
+    public ResponseEntity<PedidoDTO> buscaPorId(@PathVariable Long id) {
+        PedidoDTO dto = service.buscaPorId(id);
         return ResponseEntity.ok().body(dto);
     }
 
-    @PostMapping
-    public ResponseEntity<PedidoDTO> insert(@RequestBody PedidoDTO dto) {
-        dto = service.insert(dto);
+    @PostMapping(value = "/pedido")
+    public ResponseEntity<PedidoDTO> inserePedido(@Valid @RequestBody PedidoDTO dto) {
+        dto = service.inserePedidoComIdCliente(dto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PostMapping(value = "/pedido-cliente")
+    public ResponseEntity<PedidoDTO> inserePedidoECliente(@Valid @RequestBody PedidoDTO dto) {
+        dto = service.inserePedidoECliente(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -33,8 +44,8 @@ public class PedidoResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        service.deleteById(id);
+    public ResponseEntity<Void> deletaPorId(@PathVariable Long id) {
+        service.deletaPorId(id);
         return ResponseEntity.noContent().build();
     }
 }

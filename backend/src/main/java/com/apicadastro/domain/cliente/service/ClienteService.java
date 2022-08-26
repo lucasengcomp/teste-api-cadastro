@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Objects;
 import java.util.Optional;
 
 import static com.apicadastro.core.consts.Consts.*;
@@ -79,7 +78,7 @@ public class ClienteService {
     }
 
     public Cliente fromDTO(ClienteDTO novoDTO) {
-         return new Cliente(null, novoDTO.getNome(), novoDTO.getCpf(), novoDTO.getEmail(), novoDTO.getTelefone(), novoDTO.getDataNascimento(), novoDTO.getEndereco());
+        return new Cliente(null, novoDTO.getNome(), novoDTO.getCpf(), novoDTO.getEmail(), novoDTO.getTelefone(), novoDTO.getDataNascimento(), novoDTO.getEndereco());
     }
 
     public boolean verificaSeEmailExiste(String email) {

@@ -127,6 +127,10 @@ public class Cliente implements Serializable {
         return pedidos;
     }
 
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

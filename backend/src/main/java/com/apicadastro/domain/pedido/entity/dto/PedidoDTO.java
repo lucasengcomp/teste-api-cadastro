@@ -1,13 +1,15 @@
 package com.apicadastro.domain.pedido.entity.dto;
 
+import com.apicadastro.domain.cliente.entity.dto.ClienteDTO;
 import com.apicadastro.domain.pedido.entity.Pedido;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PedidoDTO {
+public class PedidoDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -19,7 +21,17 @@ public class PedidoDTO {
 
     private List<ItemDTO> itemsPedido = new ArrayList<>();
 
+    private ClienteDTO clienteDTO;
+
     public PedidoDTO() {
+    }
+
+    public PedidoDTO(Long id, String endereco, Long idCliente, Integer valorTotal, ClienteDTO cliente) {
+        this.id = id;
+        this.endereco = endereco;
+        this.idCliente = idCliente;
+        this.valorTotal = valorTotal;
+        this.clienteDTO = cliente;
     }
 
     public PedidoDTO(Pedido pedido) {
@@ -28,6 +40,15 @@ public class PedidoDTO {
         this.idCliente = pedido.getCliente().getId();
         this.valorTotal = pedido.getValorTotal();
         this.itemsPedido = pedido.getItems().stream().map(ItemDTO::new).collect(Collectors.toList());
+    }
+
+    public PedidoDTO(Pedido pedido, ClienteDTO clienteDTO) {
+        this.id = pedido.getId();
+        this.endereco = pedido.getEndereco();
+        this.valorTotal = pedido.getValorTotal();
+        this.itemsPedido = pedido.getItems().stream().map(ItemDTO::new).collect(Collectors.toList());
+        this.clienteDTO = new ClienteDTO(pedido.getCliente());
+        this.idCliente = clienteDTO.getId();
     }
 
     public Long getId() {
@@ -68,5 +89,13 @@ public class PedidoDTO {
 
     public void setItemsPedido(List<ItemDTO> itemsPedido) {
         this.itemsPedido = itemsPedido;
+    }
+
+    public ClienteDTO getClienteDTO() {
+        return clienteDTO;
+    }
+
+    public void setClienteDTO(ClienteDTO clienteDTO) {
+        this.clienteDTO = clienteDTO;
     }
 }
