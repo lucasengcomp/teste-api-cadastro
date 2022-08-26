@@ -21,28 +21,38 @@ public class PedidoServiceTest {
     }
 
     @Test
-    public void testSoma() {
-        List<ItemPedido> items = getLista();
+    public void testaSoma() {
+        List<ItemPedido> items = listaDeItemPedidoComValores();
 
         var res1 = pedidoService.calculaValorTotalPedido(items);
-        var res2 = pedidoService.calcularSoma(items);
 
-        Assertions.assertThat(res1).isEqualTo(res2);
+        Assertions.assertThat(res1).isEqualTo(18500);
     }
 
-    private List<ItemPedido> getLista() {
-        ItemPedido i1 = new ItemPedido();
-        i1.setValorTotal(1000);
+    private List<ItemPedido> listaDeItemPedido() {
+        ItemPedido item1 = new ItemPedido();
+        item1.setValorTotal(1000);
+        item1.setPedido(item1.getPedido());
+        item1.setValorTotal(1000);
+        item1.setSku("SKU999");
+        item1.setQuantidade(5);
+        item1.setValorUnitario(200);
+        return Arrays.asList(item1);
+    }
 
-        ItemPedido i2 = new ItemPedido();
-        i2.setValorTotal(1000);
+    private List<ItemPedido> listaDeItemPedidoComValores() {
+        ItemPedido item1 = new ItemPedido();
+        item1.setValorTotal(1000);
 
-        ItemPedido i3 = new ItemPedido();
-        i3.setValorTotal(1000);
+        ItemPedido item2 = new ItemPedido();
+        item2.setValorTotal(500);
 
-        ItemPedido i4 = new ItemPedido();
-        i4.setValorTotal(1000);
+        ItemPedido item3 = new ItemPedido();
+        item3.setValorTotal(3000);
 
-        return Arrays.asList(i1, i2, i3, i4);
+        ItemPedido item4 = new ItemPedido();
+        item4.setValorTotal(14000);
+
+        return Arrays.asList(item1, item2, item3, item4);
     }
 }
