@@ -17,12 +17,6 @@ public class PedidoResource {
     @Autowired
     private PedidoService service;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<PedidoDTO> buscaPorId(@PathVariable Long id) {
-        PedidoDTO dto = service.buscaPorId(id);
-        return ResponseEntity.ok().body(dto);
-    }
-
     @PostMapping(value = "/pedido")
     public ResponseEntity<PedidoDTO> inserePedido(@Valid @RequestBody PedidoDTO dto) {
         dto = service.inserePedidoComIdCliente(dto);
