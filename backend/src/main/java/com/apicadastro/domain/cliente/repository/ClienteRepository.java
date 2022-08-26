@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    @Transactional
+    @Transactional(readOnly = true)
     Cliente findByEmail(String email);
-
-    Cliente findClienteByEmail(String email);
 }

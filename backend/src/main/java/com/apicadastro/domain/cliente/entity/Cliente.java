@@ -12,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +34,6 @@ public class Cliente implements Serializable {
     @NotEmpty(message = "Campo cpf é de preenchimento obrigatório")
     private String cpf;
 
-    @Column(unique = true)
     @NotEmpty(message = "Campo email é de preenchimento obrigatório")
     @Email(message = "O email informado é inválido")
     private String email;
@@ -41,9 +41,9 @@ public class Cliente implements Serializable {
     @NotEmpty(message = "Campo telefone é de preenchimento obrigatório")
     private String telefone;
 
-    @NotEmpty(message = "Campo data de nascimento é de preenchimento obrigatório")
+    @NotEmpty(message = "Campo dataNascimento é de preenchimento obrigatório")
     @Column(name = "data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     @Lob
     @NotEmpty(message = "Campo endereço é de preenchimento obrigatório")
@@ -57,7 +57,7 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String cpf, String email, String telefone, String dataNascimento, String endereco) {
+    public Cliente(Long id, String nome, String cpf, String email, String telefone, LocalDate dataNascimento, String endereco) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -107,11 +107,11 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

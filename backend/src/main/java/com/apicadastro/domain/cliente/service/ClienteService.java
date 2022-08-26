@@ -40,12 +40,22 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteDTO insereNovoCliente(ClienteDTO dto) {
-        Cliente entity = new Cliente();
-        entity = objetoCliente(dto, entity);
-        validaCliente(entity);
-        entity = repository.save(entity);
-        return new ClienteDTO(entity);
+    public Cliente insereCliente(Cliente cliente) {
+        verificaSeEmailExiste(cliente.getEmail());
+        cliente.setId(null);
+        return repository.save(cliente);
+    }
+
+    @Transactional
+    public ClienteDTO atualizaCliente(Long id, ClienteDTO dto) {
+        try {
+            Cliente entity = repository.getOne(id);
+            verificaSeEmailExiste(entity.getEmail());
+            objetoCliente(dto, entity);
+            return new ClienteDTO(repository.save(entity));
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
+        }
     }
 
     public void deletaClientePorId(Long id) {
@@ -55,18 +65,6 @@ public class ClienteService {
             throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException(INTEGRIDADE_DE_DADOS_VIOLADA);
-        }
-    }
-
-    @Transactional
-    public ClienteDTO atualizaCliente(Long id, ClienteDTO dto) {
-        try {
-            Cliente entity = repository.getOne(id);
-            objetoCliente(dto, entity);
-            validaCliente(entity);
-            return new ClienteDTO(repository.save(entity));
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(ID_NAO_ENCONTRADO);
         }
     }
 
@@ -80,28 +78,15 @@ public class ClienteService {
         return entity;
     }
 
-    private void validaCliente(Cliente cliente) {
-        if (cliente.getNome() == null || cliente.getNome().equals("")) {
-            throw new UnprocessableEntity(NOME_CLIENTE_OBRIGATORIO);
+    public Cliente fromDTO(ClienteDTO novoDTO) {
+         return new Cliente(null, novoDTO.getNome(), novoDTO.getCpf(), novoDTO.getEmail(), novoDTO.getTelefone(), novoDTO.getDataNascimento(), novoDTO.getEndereco());
+    }
+
+    public boolean verificaSeEmailExiste(String email) {
+        Optional<Cliente> emailExiste = Optional.ofNullable(repository.findByEmail(email));
+        if (emailExiste.isPresent()) {
+            throw new UnprocessableEntity("Email já existe na base de dados");
         }
-        if (cliente.getCpf() == null || cliente.getCpf().equals("")) {
-            throw new UnprocessableEntity(CPF_CLIENTE_OBRIGATORIO);
-        }
-        if (cliente.getEmail() == null || cliente.getEmail().equals("")) {
-            throw new UnprocessableEntity(EMAIL_CLIENTE_OBRIGATORIO);
-        }
-        if (repository.findClienteByEmail(cliente.getEmail()) != null &&
-                !Objects.equals(repository.findClienteByEmail(cliente.getEmail()).getId(), cliente.getId())) {
-            throw new UnprocessableEntity(EMAIL_DUPLICADO);
-        }
-        if (cliente.getTelefone() == null || cliente.getTelefone().equals("")) {
-            throw new UnprocessableEntity(TELEFONE_CLIENTE_OBRIGATORIO);
-        }
-        if (cliente.getDataNascimento() == null) {
-            throw new UnprocessableEntity(DATA_NASCIMENTO_CLIENTE_OBRIGATORIO);
-        }
-        if (cliente.getEndereco() == null || cliente.getEndereco().equals("")) {
-            throw new UnprocessableEntity(ENDERECO_CLIENTE_OBRIGATORIO);
-        }
+        return false;
     }
 }

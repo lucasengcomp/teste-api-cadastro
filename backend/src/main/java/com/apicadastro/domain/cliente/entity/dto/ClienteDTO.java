@@ -3,8 +3,8 @@ package com.apicadastro.domain.cliente.entity.dto;
 import com.apicadastro.domain.cliente.entity.Cliente;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
-//@ClienteUpdate
 public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -18,14 +18,14 @@ public class ClienteDTO implements Serializable {
 
     private String telefone;
 
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     private String endereco;
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(Long id, String nome, String cpf, String email, String telefone, String dataNascimento, String endereco) {
+    public ClienteDTO(Long id, String nome, String cpf, String email, String telefone, LocalDate dataNascimento, String endereco) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -85,11 +85,11 @@ public class ClienteDTO implements Serializable {
         this.telefone = telefone;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
