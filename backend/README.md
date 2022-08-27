@@ -11,7 +11,7 @@ Vá no seu Postman e procure o botão marcado na imagem abaixo
 
 ![img.png](img.png)
 
-Clique em Upload files, importe o arquivo *API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
+Clique em Import -> Upload files, importe o arquivo *API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
 
 ## Endpoints
 ### Clientes
