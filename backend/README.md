@@ -8,7 +8,9 @@ backend/endpoints/API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
 ```
 Para fazer a importação do arquivo e já ter os endpoints e os json de find, insert, update e delete, faça o seguinte:
 Vá no seu Postman e procure o botão marcado na imagem abaixo
+
 ![img.png](img.png)
+
 Clique em Upload files, importe o arquivo *API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
 
 ## Endpoints
