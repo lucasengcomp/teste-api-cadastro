@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "d9cd3c9a-0a69-4cc1-b3e1-bb32242d86bf",
+		"name": "API-TESTE-CADASTRO-PEDIDOS-CLIENTE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5404477"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "Find by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clientes/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Lucas Galvao\",\r\n    \"cpf\": \"63401883038\",\r\n    \"email\": \"lucassgalvaasao@email.com\",\r\n    \"telefone\": \"62999887765\",\r\n    \"dataNascimento\": \"1995-01-01\",\r\n    \"endereco\": \"Rua Paulista numero 01\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clientes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Lucas Galvao\",\r\n    \"cpf\": \"63401883038\",\r\n    \"email\": \"anaveiga@email.com\",\r\n    \"telefone\": \"62999887765\",\r\n    \"dataNascimento\": \"1995-01-01\",\r\n    \"endereco\": \"Rua Paulista numero 01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/clientes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clientes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca paginado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clientes?page=0&linesPerPage=5&direction=DESC&orderBy=id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "linesPerPage",
+									"value": "5"
+								},
+								{
+									"key": "direction",
+									"value": "DESC"
+								},
+								{
+									"key": "orderBy",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "Insere Pedido com Id Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"endereco\": \"Rua Lajes, Qd1 lote 01, Nova Parnamirim, Ariquemes, Mato Grosso, Próximo a rua do turista\",\r\n    \"valorTotal\": 48920,\r\n    \"itemsPedido\": [\r\n        {\r\n            \"sku\": \"sku101\",\r\n            \"nome\": \"Mousepad\",\r\n            \"valorUnitario\": 1500,\r\n            \"quantidade\": 3,\r\n            \"valorTotal\": 4500\r\n        },\r\n        {\r\n            \"sku\": \"sku201\",\r\n            \"nome\": \"Headset\",\r\n            \"valorUnitario\": 541,\r\n            \"quantidade\": 2,\r\n            \"valorTotal\": 1082\r\n        },\r\n        {\r\n            \"sku\": \"sku301\",\r\n            \"nome\": \"Mouse\",\r\n            \"valorUnitario\": 2344,\r\n            \"quantidade\": 4,\r\n            \"valorTotal\": 9376\r\n        },\r\n        {\r\n            \"sku\": \"sku001\",\r\n            \"nome\": \"Mousepad\",\r\n            \"valorUnitario\": 12230,\r\n            \"quantidade\": 4,\r\n            \"valorTotal\": 48920\r\n        }\r\n    ],\r\n    \"clienteDTO\": {\r\n        \"nome\": \"Lucas Galvao\",\r\n        \"cpf\": \"63401883038\",\r\n        \"email\": \"lucassgalvaasao@email.com\",\r\n        \"telefone\": \"62999887765\",\r\n        \"dataNascimento\": \"1995-01-01\",\r\n        \"endereco\": \"Rua Paulista numero 01\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/pedidos/pedido-cliente",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"pedidos",
+								"pedido-cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insere Pedido cadastrando Cliente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"endereco\": \"Rua Lajes, Qd1 lote 01, Nova Parnamirim, Ariquemes, Mato Grosso, Próximo a rua do turista\",\r\n    \"idCliente\": 1,\r\n    \"valorTotal\": 48920,\r\n    \"itemsPedido\": [\r\n        {\r\n            \"sku\": \"sku101\",\r\n            \"nome\": \"Mousepad\",\r\n            \"valorUnitario\": 1500,\r\n            \"quantidade\": 3,\r\n            \"valorTotal\": 4500\r\n        },\r\n        {\r\n            \"sku\": \"sku201\",\r\n            \"nome\": \"Headset\",\r\n            \"valorUnitario\": 541,\r\n            \"quantidade\": 2,\r\n            \"valorTotal\": 1082\r\n        },\r\n        {\r\n            \"sku\": \"sku301\",\r\n            \"nome\": \"Mouse\",\r\n            \"valorUnitario\": 2344,\r\n            \"quantidade\": 4,\r\n            \"valorTotal\": 9376\r\n        },\r\n        {\r\n            \"sku\": \"sku001\",\r\n            \"nome\": \"Mousepad\",\r\n            \"valorUnitario\": 12230,\r\n            \"quantidade\": 4,\r\n            \"valorTotal\": 48920\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/pedidos/pedido",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"pedidos",
+								"pedido"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/clientes/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

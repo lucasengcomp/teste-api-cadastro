@@ -1,6 +1,16 @@
 # api-cadastro
 
 Aplicação Backend para efetuar o cadastro de Clientes e Pedidos.
+### Arquivo POSTMAN
+Você pode fazer a importação do arquivo *API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json* que está na pasta
+```shell
+backend/endpoints/API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
+```
+Para fazer a importação do arquivo e já ter os endpoints e os json de find, insert, update e delete, faça o seguinte:
+Vá no seu Postman e procure o botão marcado na imagem abaixo
+![img.png](img.png)
+Clique em Upload files, importe o arquivo *API-TESTE-CADASTRO-PEDIDOS-CLIENTE.postman_collection.json*
+
 ## Endpoints
 ### Clientes
 * `/clientes/{id}` Com o método GET -> Lista o Cliente baseado no ID informado
@@ -20,6 +30,7 @@ Para realizar o build e executar a aplicação você irá precisar de:
 
 - [JDK 11](https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html)
 - [Maven](https://maven.apache.org)
+- [Postman](https://www.postman.com/downloads/)
 
 ## Base de dados
 
