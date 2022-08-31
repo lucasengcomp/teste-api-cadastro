@@ -6,6 +6,7 @@ import com.apicadastro.domain.cliente.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,13 +31,8 @@ public class ClienteResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ClienteDTO>> buscaClientesPaginado(
-            @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
-            @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-            @RequestParam(value = "orderBy", defaultValue = "cfop") String orderBy) {
-        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        Page<ClienteDTO> dtos = service.buscaClientesPaginado(pageRequest);
+    public ResponseEntity<Page<ClienteDTO>> buscaClientesPaginado(Pageable pageable) {
+        var dtos = service.buscaClientesPaginado(pageable);
         return ResponseEntity.ok(dtos);
     }
 

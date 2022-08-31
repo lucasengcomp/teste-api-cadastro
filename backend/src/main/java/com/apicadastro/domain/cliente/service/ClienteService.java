@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +34,8 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ClienteDTO> buscaClientesPaginado(PageRequest pageRequest) {
-        Page<Cliente> clientes = repository.findAll(pageRequest);
+    public Page<ClienteDTO> buscaClientesPaginado(Pageable pageable) {
+        Page<Cliente> clientes = repository.findAll(pageable);
         return clientes.map(x -> new ClienteDTO(x));
     }
 
